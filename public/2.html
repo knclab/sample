@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+  <title>Sample2</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+<div id="contents" style="margin:20px; border-top:solid 1px #000;">
+<h3>canvasTest</h3>
+<input type="file" accept="image/*" capture id="inputFile"><br>
+</div>
+
+<script>
+  var captureForm = document.querySelector('#inputFile'),
+      //canvas = document.querySelector('canvas'),
+      canvas = document.createElement("canvas"),
+      ctx = canvas.getContext('2d');
+  canvas.width = canvas.height = 0;
+
+  captureForm.addEventListener('change', function() {
+    var file = this.files[0],
+        image = new Image(),
+        reader = new FileReader(),
+        //reduceFlag = document.querySelector('input[name="reduceFlag"]:checked') ? +document.querySelector('input[name="reduceFlag"]:checked').value : 0;
+        //size = +document.querySelector('#imageSize' + reduceFlag).value;
+        size = 400;
+    if (file.type.match(/image.*/)) {
+      reader.onloadend = function() {
+        image.onload = function() {
+          //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          var w = size, h = image.height * (size/image.width);
+          console.log("元々のサイズ:" + image.width + "×" + image.height);
+          console.log("縮小後のサイズ:" + w + "×" + h);
+
+          canvas.width = w;
+          canvas.height = h;
+          ctx.drawImage(image, 0, 0, w, h);
+
+          // 縮小画像を表示
+          var img = document.createElement('img');
+          img.src = canvas.toDataURL();
+          document.querySelector('body').appendChild(img);
+        }
+        image.src = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  }, false);
+
+</script>
+
+</body>
+</html>
+

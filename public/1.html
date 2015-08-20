@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Sample</title>
+<head lang="ja">
+  <title>Sample1</title>
+  <meta charset="UTF-8">
 </head>
 <body>
 
-<span>test</span>
+<div id="contents" style="margin:20px; border-top:solid 1px #000;">
+  <div id="area">
+    <h3>canvasResize</h3>
+    <div><input name="photo" type="file"/></div>
+  </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="binaryajax.js"></script>
+<script src="exif.js"></script>
+<script src="canvasResize.js"></script>
+<script>
+$('input[name=photo]').change(function(e) {
+  var file = e.target.files[0];
+  // CANVAS RESIZING
+  canvasResize(file, {
+    width: 400,
+    height: 400,
+    crop: false,
+    quality: 80,
+    rotate: 0,
+    callback: function(data, width, height) {
+      // SHOW AS AN IMAGE
+      // =================================================
+      var img = new Image();
+      img.onload = function() {
+        $(this).css({
+          'margin': '10px auto',
+          'width': width,
+          'height': height
+        }).appendTo('#area div');
+      };
+      $(img).attr('src', data);
+    }
+  });
+});
+</script>
 
 </body>
 </html>
