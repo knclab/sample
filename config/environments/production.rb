@@ -76,4 +76,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # /public配下の性的ページ呼び出し
+  config.serve_static_assets = true
 end
