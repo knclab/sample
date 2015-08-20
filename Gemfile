@@ -49,3 +49,5 @@ group :development, :test do
   gem 'database_rewinder'
 end
 
+# newrelic
+gem 'newrelic_rpm'
