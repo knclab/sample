@@ -78,5 +78,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # /public配下の性的ページ呼び出し
-  config.serve_static_assets = true
+  config.serve_static_files = true
 end
